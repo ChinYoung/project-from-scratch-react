@@ -1,0 +1,13 @@
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    padding: 20px;
+    background-color: rgb(108, 153, 192);
+}
+
+.inputBox {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+}
