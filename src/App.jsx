@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import Login from './components/Login'
+import LoginPage from './components/Login'
 
 class App extends Component {
   render() {
     return (
-      <Login />
+      <LoginPage />
     )
   }
 }
