@@ -1,8 +1,8 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import style from './index.module.css'
 import { Label, Input, Button } from '../../styledComponent/style'
 
-function LoginPage() {
+export default function LoginPage() {
   let [user, setUser] = useState({ username: '', password: '' })
 
   function Login() {
@@ -25,5 +25,3 @@ function LoginPage() {
     </div>
   )
 }
-
-export default LoginPage

@@ -44,5 +44,8 @@ module.exports = {
     'import/no-named-as-default': 'off',
     'no-use-before-define': 'off',
     'import/prefer-default-export': 'off',
+    'comma-dangle': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': 'off',
   },
 }
