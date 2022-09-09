@@ -13,9 +13,25 @@
                 "corejs": "3.6.5"
             }
         ],
-        "@babel/preset-react"
+        [
+            "@babel/preset-react",
+            {
+                "pragma": "dom",
+                "pragmaFrag": "DomFrag",
+                "throwIfNamespace": false,
+                "runtime": "classic"
+            }
+        ]
     ],
     "plugins": [
-        "@babel/plugin-transform-modules-commonjs"
+        "@babel/plugin-syntax-jsx",
+        [
+            "@babel/plugin-transform-react-jsx",
+            {
+                "throwIfNamespace": false,
+                "runtime": "automatic",
+                "importSource": "custom-jsx-library"
+            }
+        ]
     ]
 }

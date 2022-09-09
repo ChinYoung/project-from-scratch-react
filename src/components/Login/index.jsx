@@ -1,14 +1,26 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import style from './index.module.css'
 import { Label, Input, Button } from '../../styledComponent/style'
 
-function LoginPage() {
+export default function LoginPage() {
   let [user, setUser] = useState({ username: '', password: '' })
-
+  const navigate = useNavigate()
   function Login() {
-    window.open(
-      'https://github.com/login/oauth/authorize?client_id=ad1304e89d9bb4b22337&redirect_uri=https://www.rakki.fun:30789/libra/oauthcb',
-    )
+    const search = window.location.search.substring(1)
+    const params = search.split('&')
+    const token = params.map((item) => {
+      const [name, value] = item.split('=')
+      if (name === 'token') { return value }
+    })
+    if (token[0]) {
+      window.sessionStorage.setItem('token', token[0])
+      navigate('/libra/home', { replace: true })
+    } else {
+      window.open(
+        'https://github.com/login/oauth/authorize?client_id=ad1304e89d9bb4b22337&redirect_uri=https://www.rakki.fun:30789/libra/oauthcb',
+      )
+    }
   }
 
   return (
@@ -25,5 +37,3 @@ function LoginPage() {
     </div>
   )
 }
-
-export default LoginPage
