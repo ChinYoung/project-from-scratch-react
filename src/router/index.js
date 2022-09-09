@@ -1,21 +1,16 @@
-import { useRoutes, Navigate } from 'react-router-dom'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import LoginPage from '../components/Login'
+import Home from '../components/Home'
 
-const Login = () => import('../components/Login')
-const Home = () => import('../components/Home')
-
-const elements = useRoutes([
-  {
-    path: '/login',
-    element: <Login />
-  },
-  {
-    path: '/home',
-    element: <Home />
-  },
-  {
-    path: '/',
-    element: <Navigate to="/login" />
-  }
-])
-
-export default elements
+export default function routes() {
+  return (
+    <div>
+      <Routes>
+        <Route path="/libra/" element={<LoginPage />} />
+        <Route path="/libra/login" element={<LoginPage />} />
+        <Route path="/libra/home" element={<Home />} />
+      </Routes>
+    </div>
+  )
+}

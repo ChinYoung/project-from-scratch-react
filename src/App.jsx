@@ -1,11 +1,10 @@
-import { Component } from 'react'
-import LoginPage from './components/Login'
-import elements from './router'
+import React, { Component } from 'react'
+import Element from './router'
 
 class App extends Component {
   render() {
     return (
-      { elements }
+      <Element />
     )
   }
 }
