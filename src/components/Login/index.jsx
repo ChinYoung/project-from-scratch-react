@@ -5,16 +5,15 @@ import { Label, Input, Button } from '../../styledComponent/style'
 
 export default function LoginPage() {
   let [user, setUser] = useState({ username: '', password: '' })
-
+  const navigate = useNavigate()
   function Login() {
-    const navigate = useNavigate()
     const search = window.location.search.substring(1)
     const params = search.split('&')
     const token = params.map((item) => {
       const [name, value] = item.split('=')
       if (name === 'token') { return value }
     })
-    if (token.length !== 0) {
+    if (token[0]) {
       window.sessionStorage.setItem('token', token[0])
       navigate('/libra/home', { replace: true })
     } else {

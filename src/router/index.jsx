@@ -5,7 +5,7 @@ import Home from '../components/Home'
 
 export default function routes() {
   return (
-    <div>
+    <div className="ComContainer">
       <Routes>
         <Route path="/libra/" element={<LoginPage />} />
         <Route path="/libra/login" element={<LoginPage />} />

@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 const Button = styled.button`
+    width: 90px;
+    height: 40px;
     border-radius: 4px;
     padding: 12px 23px;
     color: #bac7e5;
@@ -14,6 +16,8 @@ const Button = styled.button`
     text-align: center;
     box-sizing: border-box;
     margin-left: auto;
+    margin-top: 10px;
+    margin-right: 10px;
     font-size: 14px;
     :hover {
         border-color: #646cff;
@@ -34,6 +38,7 @@ const Input = styled.input`
     outline: none;
     padding: 0 15px;
     margin-left: 10px;
+    margin-right: 10px;
     width: calc(86% - 10px);
 `
 const Label = styled.label`
