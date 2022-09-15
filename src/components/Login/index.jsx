@@ -7,14 +7,10 @@ export default function LoginPage() {
   let [user, setUser] = useState({ username: '', password: '' })
   const navigate = useNavigate()
   function Login() {
-    const search = window.location.search.substring(1)
-    const params = search.split('&')
-    const token = params.map((item) => {
-      const [name, value] = item.split('=')
-      if (name === 'token') { return value }
-    })
-    if (token[0]) {
-      window.sessionStorage.setItem('token', token[0])
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get('token')
+    if (token) {
+      window.sessionStorage.setItem('token', token)
       navigate('/libra/home', { replace: true })
     } else {
       window.open(

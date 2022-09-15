@@ -47,6 +47,9 @@ module.exports = {
     'comma-dangle': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': 'off',
-    'array-callback-return': 'off'
+    'array-callback-return': 'off',
+    'react/no-unknown-property': 'off',
+    'react/prop-types': 'off',
+    'react/no-unstable-nested-components': 'off'
   },
 }
