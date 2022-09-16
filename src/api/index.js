@@ -9,4 +9,12 @@ const getTodoList = async (timestamp, nonce, sig, token) => {
   })
   return res.data
 }
-export { getTodoList }
+const createTodoItem = async (info) => {
+  const {
+    content, start_time, end_time, timestamp, nonce, sig
+  } = info
+  await axios.post(`${url}/todo`, {
+    content, start_time, end_time, timestamp, nonce, sig
+  })
+}
+export { getTodoList, createTodoItem }

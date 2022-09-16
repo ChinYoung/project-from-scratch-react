@@ -50,6 +50,7 @@ module.exports = {
     'array-callback-return': 'off',
     'react/no-unknown-property': 'off',
     'react/prop-types': 'off',
-    'react/no-unstable-nested-components': 'off'
+    'react/no-unstable-nested-components': 'off',
+    camelcase: 'off'
   },
 }

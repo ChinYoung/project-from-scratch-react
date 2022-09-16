@@ -24,6 +24,7 @@ const Button = styled.button`
         color: #646cff;
     }
 `
+
 const Input = styled.input`
     background-color: #fff;
     background-image: none;
@@ -39,6 +40,7 @@ const Input = styled.input`
     padding: 0 15px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 10px;
     width: calc(86% - 10px);
 `
 const Label = styled.label`
@@ -48,4 +50,6 @@ const Label = styled.label`
     height: 40px;
     line-height: 40px;
 `
-export { Button, Input, Label }
+export {
+  Button, Input, Label
+}
