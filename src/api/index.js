@@ -9,4 +9,26 @@ const getTodoList = async (timestamp, nonce, sig, token) => {
   })
   return res.data
 }
-export { getTodoList }
+const createTodoItem = async (info) => {
+  const {
+    content, start_time, end_time, timestamp, nonce, sig, token
+  } = info
+  const { data: res } = await axios.post(
+    `${url}/todo`,
+    {
+      content,
+      start_time,
+      end_time,
+      timestamp,
+      nonce,
+      sig
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  )
+  return res
+}
+export { getTodoList, createTodoItem }
