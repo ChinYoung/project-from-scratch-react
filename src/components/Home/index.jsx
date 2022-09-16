@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { nanoid } from 'nanoid'
 import { Button, Input } from '../../styledComponent/style'
@@ -42,35 +42,6 @@ export default function Home() {
     }
   }
 
-  // function Tr(props) {
-  //   console.log('Tr', props)
-  //   const { info } = props
-  //   const attrs = Object.entries(info)
-  //   const person = attrs.map((item) => {
-  //     <td key={item[0]}>{ item[1] }</td>
-  //   })
-  //   return (
-  //     <tr>
-  //       {person}
-  //     </tr>
-  //   )
-  // }
-
-  // function TableList(props) {
-  //   const { list } = props
-  //   const listItems = list.map((item) => {
-  //     <Tr key={item.id} info={item} />
-  //   })
-  //   console.log(listItems)
-  //   return (
-  //     <div>
-  //       <table>
-  //         {listItems}
-  //       </table>
-  //     </div>
-  //   )
-  // }
-
   return (
     <div>
       <div className={ownStyle.header}>
@@ -82,7 +53,6 @@ export default function Home() {
         <Dialog id={ownStyle.btn2} />
       </div>
       <TodoList dataList={todoList} />
-      {/* <TableList list={todoList} /> */}
     </div>
   )
 }

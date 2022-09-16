@@ -19,7 +19,9 @@ export default function Dialog() {
   }
 
   const handleOk = () => {
-    createTodoItem(postBody)
+    createTodoItem(postBody).then((res) => {
+      console.log(res)
+    })
     setIsModalOpen(false)
   }
 
@@ -32,8 +34,8 @@ export default function Dialog() {
         Add
       </Button>
       <Modal title="Add" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <Input placeholder="Please input start_time" onChange={(e) => setInfo({ ...info, start_time: e.target.value })} />
-        <Input placeholder="Please input end_time" onChange={(e) => setInfo({ ...info, end_time: e.target.value })} />
+        <Input placeholder="Please input start time" onChange={(e) => setInfo({ ...info, start_time: e.target.value })} />
+        <Input placeholder="Please input end time" onChange={(e) => setInfo({ ...info, end_time: e.target.value })} />
         <Input placeholder="Please input content" onChange={(e) => setInfo({ ...info, content: e.target.value })} />
       </Modal>
     </>

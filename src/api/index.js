@@ -13,8 +13,9 @@ const createTodoItem = async (info) => {
   const {
     content, start_time, end_time, timestamp, nonce, sig
   } = info
-  await axios.post(`${url}/todo`, {
+  const { data: res } = await axios.post(`${url}/todo`, {
     content, start_time, end_time, timestamp, nonce, sig
   })
+  return res
 }
 export { getTodoList, createTodoItem }
