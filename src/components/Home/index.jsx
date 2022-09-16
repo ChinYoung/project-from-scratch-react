@@ -30,7 +30,6 @@ export default function Home() {
     }
     const sig = encodeURIComponent(getSign(plainObj))
     getTodoList(timestamp, nonce, sig, token).then((res) => {
-      console.log('res', res)
       if (res?.todoItems) { setTodoList(res.todoItems) }
     })
   }, [])

@@ -13,7 +13,8 @@ export default function Dialog() {
   const nonce = nanoid().slice(0, 4)
   const plainObj = { ...info, timestamp, nonce }
   const sig = encodeURIComponent(getSign(plainObj))
-  const postBody = { ...plainObj, sig }
+  const token = window.sessionStorage.getItem('token')
+  const postBody = { ...plainObj, sig, token }
   const showModal = () => {
     setIsModalOpen(true)
   }
