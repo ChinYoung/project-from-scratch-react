@@ -51,6 +51,7 @@ module.exports = {
     'react/no-unknown-property': 'off',
     'react/prop-types': 'off',
     'react/no-unstable-nested-components': 'off',
+    'no-constant-condition': 'off',
     camelcase: 'off'
   },
 }

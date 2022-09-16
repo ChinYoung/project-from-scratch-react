@@ -3,25 +3,20 @@ import { useNavigate } from 'react-router'
 import { nanoid } from 'nanoid'
 import { Button, Input } from '../../styledComponent/style'
 import ownStyle from './index.module.css'
-import { getTodoList } from '../../api'
+import { getTodoList, searchTodoItems } from '../../api'
 import { getSign } from '../../utils/getSign'
 import TodoList from './Table'
 import Dialog from './Dialog'
 
 export default function Home() {
   const navigate = useNavigate()
-  let [todoList, setTodoList] = useState([
-    {
-      id: '001', name: 'mery', email: '121212@qq.com', age: '22', profession: 'doctor', sex: 'male'
-    },
-    {
-      id: '002', name: 'mary', email: '121212@qq.com', age: '22', profession: 'doctor', sex: 'female'
-    }
-  ])
+  const [allItems, setAllItems] = useState([])
+  let [todoList, setTodoList] = useState([])
+  let [search, setSearch] = useState('')
+  const token = window.sessionStorage.getItem('token')
   useEffect(() => {
     const timestamp = Date.parse(new Date()).toString().slice(0, 10)
     const nonce = nanoid().slice(0, 4)
-    const token = window.sessionStorage.getItem('token')
     const plainObj = {
       pageSize: 10,
       pageNumber: 0,
@@ -30,9 +25,32 @@ export default function Home() {
     }
     const sig = encodeURIComponent(getSign(plainObj))
     getTodoList(timestamp, nonce, sig, token).then((res) => {
-      if (res?.todoItems) { setTodoList(res.todoItems) }
+      if (res?.todoItems) {
+        setAllItems(res.todoItems)
+        setTodoList(res.todoItems)
+      }
     })
   }, [])
+
+  function searchItems() {
+    if (search.trim() === '') setTodoList(allItems)
+    else {
+      const timestamp = Date.parse(new Date()).toString().slice(0, 10)
+      const nonce = nanoid().slice(0, 4)
+      const obj = { timestamp, nonce }
+      const sig = encodeURIComponent(getSign(obj))
+      const itemInfo = {
+        todo_id: search,
+        timestamp,
+        nonce,
+        sig,
+        token
+      }
+      searchTodoItems(itemInfo).then((res) => {
+        setTodoList([res.data])
+      })
+    }
+  }
 
   function Logout() {
     if (window.sessionStorage.getItem('token')) {
@@ -47,8 +65,8 @@ export default function Home() {
         <Button onClick={Logout}>Logout</Button>
       </div>
       <div id={ownStyle.box}>
-        <Input id={ownStyle.input}></Input>
-        <Button id={ownStyle.btn1}>Search</Button>
+        <Input id={ownStyle.input} onChange={(e) => { setSearch(e.target.value) }}></Input>
+        <Button id={ownStyle.btn1} onClick={searchItems}>Search</Button>
         <Dialog id={ownStyle.btn2} />
       </div>
       <TodoList dataList={todoList} />
