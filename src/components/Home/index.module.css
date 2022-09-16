@@ -20,7 +20,6 @@
 :global(.ant-btn-primary) {
     margin-left: auto;
     width: 90px;
-    height: 40px !important;
     border-radius: 4px !important;
     padding: 12px 23px;
     color: #bac7e5 !important;

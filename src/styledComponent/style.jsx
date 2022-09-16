@@ -46,6 +46,7 @@ const Input = styled.input`
 const Label = styled.label`
     color: #bac7e5;
     text-align: right;
+    margin-top: 10px;
     width: 14%;
     height: 40px;
     line-height: 40px;
