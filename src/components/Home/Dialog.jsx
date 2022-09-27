@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import 'antd/dist/antd.css'
-import { Modal } from 'antd'
+import { Modal, message } from 'antd'
 import { nanoid } from 'nanoid'
 import { Input, Button } from '../../styledComponent/style'
 import cssStyle from './Table/index.module.css'
@@ -19,23 +19,42 @@ export default function Dialog(props) {
   const sig = getSign(plainObj)
   const token = window.sessionStorage.getItem('token')
   const postBody = { ...plainObj, sig, token }
+  const clearFilm = () => {
+    setInfo({ start_time: '', end_time: '', content: '' })
+  }
   const showModal = () => {
+    clearFilm()
     setIsModalOpen(true)
   }
-
   const handleOk = () => {
     if (title === 'Add') {
       createTodoItem(postBody)
+      setIsModalOpen(false)
     } else {
-      const { todo_id } = itemData
-      updateTodoItem({ todo_id, token })
+      const {
+        todo_id, content, end_time, start_time
+      } = itemData
+      const oldInfo = { start_time, end_time, content }
+      if (Object.values(info).toString().split(',').join('') === '') {
+        warning('Please fill in the form!')
+      } else if (Object.entries(oldInfo).toString() !== Object.entries(info).toString()) {
+        const updateInfo = { ...postBody, todo_id }
+        updateTodoItem(updateInfo)
+        setIsModalOpen(false)
+      } else {
+        warning('The contents should not be same as before, please fill in the form again!')
+      }
     }
-    setIsModalOpen(false)
   }
 
   const handleCancel = () => {
     setIsModalOpen(false)
   }
+
+  const warning = (warn) => {
+    message.warning(warn)
+  }
+
   return (
     <>
       <Button onClick={showModal} id={btnStyle}>

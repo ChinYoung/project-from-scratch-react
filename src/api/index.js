@@ -41,13 +41,26 @@ const deleteTodoItem = async (info) => {
   })
 }
 const updateTodoItem = async (info) => {
-  const { todo_id, token } = info
-  const { data: res } = await axios.post(`${url}/todo/${todo_id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
+  const {
+    todo_id, token, nonce, sig, timestamp, content, start_time, end_time
+  } = info
+  console.log('info', info)
+  const { data: res } = await axios.post(
+    `${url}/todo/${todo_id}`,
+    {
+      content,
+      start_time,
+      end_time,
+      timestamp,
+      nonce,
+      sig
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  })
-  console.log('edit', todo_id, res)
+  )
 }
 const searchTodoItems = async (info) => {
   const {
