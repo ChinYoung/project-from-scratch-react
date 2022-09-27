@@ -26,17 +26,22 @@ export default function TodoList(props) {
   }
   return (
     <Table data={dataList} height={300}>
-      <Column fixed flexGrow={1}>
+      <Column fixed flexGrow={0.5}>
         <HeaderCell>ID</HeaderCell>
         <Cell dataKey="id" />
       </Column>
 
-      <Column flexGrow={2}>
+      <Column fixed flexGrow={1}>
+        <HeaderCell>Content</HeaderCell>
+        <Cell dataKey="content" />
+      </Column>
+
+      <Column flexGrow={1.5}>
         <HeaderCell>start time</HeaderCell>
         <Cell dataKey="start_time" />
       </Column>
 
-      <Column flexGrow={2}>
+      <Column flexGrow={1.5}>
         <HeaderCell>end time</HeaderCell>
         <Cell dataKey="end_time" />
       </Column>
@@ -44,11 +49,6 @@ export default function TodoList(props) {
       <Column flexGrow={2}>
         <HeaderCell>todo id</HeaderCell>
         <Cell dataKey="todo_id" />
-      </Column>
-
-      <Column flexGrow={2}>
-        <HeaderCell>owner</HeaderCell>
-        <Cell dataKey="owner" />
       </Column>
 
       <Column flexGrow={1.1}>

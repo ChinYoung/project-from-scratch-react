@@ -14,7 +14,7 @@ export default function Home() {
   let [todoList, setTodoList] = useState([])
   let [search, setSearch] = useState('')
   const token = window.sessionStorage.getItem('token')
-  useEffect(() => {
+  function getList() {
     const timestamp = Date.parse(new Date()).toString().slice(0, 10)
     const nonce = nanoid().slice(0, 4)
     const plainObj = {
@@ -30,6 +30,9 @@ export default function Home() {
         setTodoList(res.todoItems)
       }
     })
+  }
+  useEffect(() => {
+    getList()
   }, [])
 
   function searchItems() {
