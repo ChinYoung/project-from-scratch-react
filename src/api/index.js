@@ -1,75 +1,74 @@
 import axios from 'axios'
+import { nanoid } from 'nanoid'
+import { getSign } from '../utils/getSign'
 
 const url = import.meta.env.VITE_URL
-const getTodoList = async (timestamp, nonce, sig, token) => {
-  const { data: res } = await axios.get(`${url}/todo?pageSize=10&pageNumber=0&timestamp=${timestamp}&nonce=${nonce}&sig=${sig}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
+const timestamp = Date.parse(new Date()).toString().slice(0, 10)
+const nonce = nanoid().slice(0, 4)
+
+axios.interceptors.request.use((config) => {
+  const token = window.sessionStorage.getItem('token')
+  config.headers.Authorization = `Bearer ${token}`
+  let sig = ''
+  if (config.method !== 'post') {
+    sig = getSign(config.params)
+    config.params.sig = sig
+  } else {
+    sig = getSign(config.data)
+    config.data.sig = sig
+  }
+  return config
+})
+
+const getTodoList = async () => {
+  const plainObj = {
+    pageSize: 10,
+    pageNumber: 0,
+    timestamp,
+    nonce
+  }
+  const { data: res } = await axios.get(
+    `${url}/todo/`,
+    { params: plainObj }
+  )
   return res.data
 }
+
 const createTodoItem = async (info) => {
-  const {
-    content, start_time, end_time, timestamp, nonce, sig, token
-  } = info
-  await axios.post(
-    `${url}/todo`,
-    {
-      content,
-      start_time,
-      end_time,
-      timestamp,
-      nonce,
-      sig
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-  )
+  const data = {
+    ...info,
+    timestamp,
+    nonce
+  }
+  await axios.post(`${url}/todo`, { ...data })
 }
-const deleteTodoItem = async (info) => {
-  const {
-    todo_id, timestamp, nonce, sig, token
-  } = info
-  await axios.delete(`${url}/todo/${todo_id}?timestamp=${timestamp}&nonce=${nonce}&sig=${sig}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
+
+const deleteTodoItem = async (todo_id) => {
+  const params = {
+    timestamp,
+    nonce
+  }
+  await axios.delete(`${url}/todo/${todo_id}`, { params })
 }
+
 const updateTodoItem = async (info) => {
   const {
-    todo_id, token, nonce, sig, timestamp, content, start_time, end_time
+    todo_id, content, start_time, end_time
   } = info
-  console.log('info', info)
-  const { data: res } = await axios.post(
-    `${url}/todo/${todo_id}`,
-    {
-      content,
-      start_time,
-      end_time,
-      timestamp,
-      nonce,
-      sig
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-  )
+  const data = {
+    content,
+    start_time,
+    end_time,
+    timestamp,
+    nonce
+  }
+  await axios.post(`${url}/todo/${todo_id}`, { ...data })
 }
-const searchTodoItems = async (info) => {
-  const {
-    todo_id, timestamp, nonce, sig, token
-  } = info
-  const { data: res } = await axios.get(`${url}/todo/${todo_id}?timestamp=${timestamp}&nonce=${nonce}&sig=${sig}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
+
+const searchTodoItems = async (todo_id) => {
+  const params = { timestamp, nonce }
+  const { data: res } = await axios.get(`${url}/todo/${todo_id}`, {
+    params
   })
   return res
 }

@@ -5,24 +5,16 @@ import {
 import React from 'react'
 import { nanoid } from 'nanoid'
 import 'rsuite-table/dist/css/rsuite-table.css'
-import { Button, Input } from '../../../styledComponent/style'
+import { Button } from '../../../styledComponent/style'
 import cssStyle from './index.module.css'
-import { getSign } from '../../../utils/getSign'
-import { deleteTodoItem, updateTodoItem } from '../../../api'
+import { deleteTodoItem } from '../../../api'
 import Dialog from '../Dialog'
 
 export default function TodoList(props) {
   const { dataList } = props
-  const timestamp = Date.parse(new Date()).toString().slice(0, 10)
-  const nonce = nanoid().slice(0, 4)
-  const sig = encodeURIComponent(getSign({ timestamp, nonce }))
-  const token = window.sessionStorage.getItem('token')
   function deleteRow(rowData) {
     const { todo_id } = rowData
-    const todoItem = {
-      todo_id, timestamp, nonce, sig, token
-    }
-    deleteTodoItem(todoItem)
+    deleteTodoItem(todo_id)
   }
   return (
     <Table data={dataList} height={300}>
