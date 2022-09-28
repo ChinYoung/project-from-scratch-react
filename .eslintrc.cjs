@@ -52,6 +52,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-unstable-nested-components': 'off',
     'no-constant-condition': 'off',
+    'no-param-reassign': 'off',
     camelcase: 'off'
   },
 }

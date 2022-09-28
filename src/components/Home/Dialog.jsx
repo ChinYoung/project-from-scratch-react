@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
-import { nanoid } from 'nanoid'
 import { Input, Button } from '../../styledComponent/style'
 import cssStyle from './Table/index.module.css'
 import { createTodoItem, updateTodoItem } from '../../api'
-import { getSign } from '../../utils/getSign'
 
 export default function Dialog(props) {
   const { operateType, itemData } = props
@@ -13,22 +11,15 @@ export default function Dialog(props) {
   const btnStyle = (title === 'Add' ? '' : cssStyle.btn)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [info, setInfo] = useState({ start_time: '', end_time: '', content: '' })
-  const timestamp = Date.parse(new Date()).toString().slice(0, 10)
-  const nonce = nanoid().slice(0, 4)
-  const plainObj = { ...info, timestamp, nonce }
-  const sig = getSign(plainObj)
-  const token = window.sessionStorage.getItem('token')
-  const postBody = { ...plainObj, sig, token }
   const clearFilm = () => {
     setInfo({ start_time: '', end_time: '', content: '' })
   }
   const showModal = () => {
-    clearFilm()
     setIsModalOpen(true)
   }
   const handleOk = () => {
     if (title === 'Add') {
-      createTodoItem(postBody)
+      createTodoItem(info)
       setIsModalOpen(false)
     } else {
       const {
@@ -38,7 +29,7 @@ export default function Dialog(props) {
       if (Object.values(info).toString().split(',').join('') === '') {
         warning('Please fill in the form!')
       } else if (Object.entries(oldInfo).toString() !== Object.entries(info).toString()) {
-        const updateInfo = { ...postBody, todo_id }
+        const updateInfo = { ...info, todo_id }
         updateTodoItem(updateInfo)
         setIsModalOpen(false)
       } else {

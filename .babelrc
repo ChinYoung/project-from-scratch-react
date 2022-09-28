@@ -32,7 +32,7 @@
                 "runtime": "automatic",
                 "importSource": "custom-jsx-library"
             },
-            "transform"
+            "%%transform-jsx-to-js%%"
         ]
     ]
 }
