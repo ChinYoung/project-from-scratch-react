@@ -28,7 +28,6 @@ export default function Dialog(props) {
       })
       setIsModalOpen(false)
     } else {
-      console.log('1', updateList)
       const {
         todo_id, content, end_time, start_time
       } = itemData
@@ -37,9 +36,7 @@ export default function Dialog(props) {
         warning('Please fill in the form!')
       } else if (Object.entries(oldInfo).toString() !== Object.entries(info).toString()) {
         const updateInfo = { ...info, todo_id }
-        console.log('2', updateList)
         updateTodoItem(updateInfo).then(() => {
-          console.log('3', updateList)
           getTodoList().then((res) => {
             newList = res.todoItems
             updateList(newList)

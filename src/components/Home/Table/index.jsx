@@ -55,7 +55,7 @@ export default function TodoList(props) {
             return (
               <div>
                 <Button id={cssStyle.btn} onClick={() => { deleteRow(rowData) }}>Delete</Button>
-                <Dialog operateType="edit" itemData={rowData} />
+                <Dialog operateType="edit" itemData={rowData} updateList={updateList} />
               </div>
             )
           }}
