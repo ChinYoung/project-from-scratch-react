@@ -48,7 +48,8 @@ const deleteTodoItem = async (todo_id) => {
     timestamp,
     nonce
   }
-  await axios.delete(`${url}/todo/${todo_id}`, { params })
+  const { data: res } = await axios.delete(`${url}/todo/${todo_id}`, { params })
+  return res.data
 }
 
 const updateTodoItem = async (info) => {

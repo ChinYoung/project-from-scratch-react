@@ -3,14 +3,15 @@ import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
 import { Input, Button } from '../../styledComponent/style'
 import cssStyle from './Table/index.module.css'
-import { createTodoItem, updateTodoItem } from '../../api'
+import { createTodoItem, updateTodoItem, getTodoList } from '../../api'
 
 export default function Dialog(props) {
-  const { operateType, itemData } = props
+  const { operateType, itemData, updateList } = props
   const title = operateType || 'Add'
   const btnStyle = (title === 'Add' ? '' : cssStyle.btn)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [info, setInfo] = useState({ start_time: '', end_time: '', content: '' })
+  let newList = []
   const clearFilm = () => {
     setInfo({ start_time: '', end_time: '', content: '' })
   }
@@ -19,9 +20,15 @@ export default function Dialog(props) {
   }
   const handleOk = () => {
     if (title === 'Add') {
-      createTodoItem(info)
+      createTodoItem(info).then(() => {
+        getTodoList().then((res) => {
+          newList = res.todoItems
+          updateList(newList)
+        })
+      })
       setIsModalOpen(false)
     } else {
+      console.log('1', updateList)
       const {
         todo_id, content, end_time, start_time
       } = itemData
@@ -30,7 +37,14 @@ export default function Dialog(props) {
         warning('Please fill in the form!')
       } else if (Object.entries(oldInfo).toString() !== Object.entries(info).toString()) {
         const updateInfo = { ...info, todo_id }
-        updateTodoItem(updateInfo)
+        console.log('2', updateList)
+        updateTodoItem(updateInfo).then(() => {
+          console.log('3', updateList)
+          getTodoList().then((res) => {
+            newList = res.todoItems
+            updateList(newList)
+          })
+        })
         setIsModalOpen(false)
       } else {
         warning('The contents should not be same as before, please fill in the form again!')
