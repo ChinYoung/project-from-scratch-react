@@ -23,6 +23,10 @@ export default function Home() {
     getList()
   }, [])
 
+  function todoListToTable(newList) {
+    setTodoList(newList)
+  }
+
   function searchItems() {
     if (search.trim() === '') setTodoList(allItems)
     else {
@@ -47,9 +51,9 @@ export default function Home() {
       <div id={ownStyle.box}>
         <Input id={ownStyle.input} onChange={(e) => { setSearch(e.target.value) }}></Input>
         <Button id={ownStyle.btn1} onClick={searchItems}>Search</Button>
-        <Dialog id={ownStyle.btn2} />
+        <Dialog id={ownStyle.btn2} updateList={todoListToTable} />
       </div>
-      <TodoList dataList={todoList} />
+      <TodoList dataList={todoList} updateList={todoListToTable} />
     </div>
   )
 }

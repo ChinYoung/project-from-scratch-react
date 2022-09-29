@@ -2,19 +2,24 @@ import {
   Table, Column, HeaderCell, Cell
 } from 'rsuite-table'
 
-import React from 'react'
-import { nanoid } from 'nanoid'
+import React, { useState } from 'react'
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { Button } from '../../../styledComponent/style'
 import cssStyle from './index.module.css'
-import { deleteTodoItem } from '../../../api'
+import { deleteTodoItem, getTodoList } from '../../../api'
 import Dialog from '../Dialog'
 
 export default function TodoList(props) {
-  const { dataList } = props
+  const { dataList, updateList } = props
+  let newList = []
   function deleteRow(rowData) {
     const { todo_id } = rowData
-    deleteTodoItem(todo_id)
+    deleteTodoItem(todo_id).then(() => {
+      getTodoList().then((res) => {
+        newList = res.todoItems
+        updateList(newList)
+      })
+    })
   }
   return (
     <Table data={dataList} height={300}>
@@ -46,11 +51,11 @@ export default function TodoList(props) {
       <Column flexGrow={1.1}>
         <HeaderCell>operation</HeaderCell>
         <Cell>
-          {(rowData, rowIndex) => {
+          {(rowData) => {
             return (
               <div>
                 <Button id={cssStyle.btn} onClick={() => { deleteRow(rowData) }}>Delete</Button>
-                <Dialog operateType="edit" itemData={rowData} />
+                <Dialog operateType="edit" itemData={rowData} updateList={updateList} />
               </div>
             )
           }}
