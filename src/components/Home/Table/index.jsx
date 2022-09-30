@@ -4,7 +4,7 @@ import {
 
 import React from 'react'
 import 'rsuite-table/dist/css/rsuite-table.css'
-import { Button } from '../../../styledComponent/style'
+import { Button } from '../../../style'
 import { deleteTodoItem, getTodoList } from '../../../api'
 import Dialog from '../Dialog'
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
-import { Input, Button } from '../../styledComponent/style'
+import { Input, Button } from '../../style'
 import { createTodoItem, updateTodoItem, getTodoList } from '../../api'
 
 export default function Dialog(props) {

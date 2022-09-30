@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Button, Input, Div } from '../../styledComponent/style'
+import { Button, Input } from '../../style'
+import { Header, Box, Table } from './style'
 import { getTodoList, searchTodoItems } from '../../api'
 import TodoList from './Table'
 import Dialog from './Dialog'
@@ -43,16 +44,16 @@ export default function Home() {
   }
 
   return (
-    <Div id="table">
-      <Div id="header">
+    <Table>
+      <Header>
         <Button onClick={Logout}>Logout</Button>
-      </Div>
-      <Div id="box">
+      </Header>
+      <Box>
         <Input id="searchInput" onChange={(e) => { setSearch(e.target.value) }}></Input>
         <Button id="searchBtn" onClick={searchItems}>Search</Button>
         <Dialog updateList={todoListToTable} />
-      </Div>
+      </Box>
       <TodoList dataList={todoList} updateList={todoListToTable} />
-    </Div>
+    </Table>
   )
 }
