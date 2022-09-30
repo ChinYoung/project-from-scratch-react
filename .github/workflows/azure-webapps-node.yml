@@ -20,14 +20,14 @@
 on:
   push:
     branches:
-      - 'main'
+      - "main"
   workflow_dispatch:
     inputs:
       to_run_branch:
-        default: 'main'
+        default: "main"
         type: string
 env:
-  NODE_VERSION: '16.x'                # set this to the node version to use
+  NODE_VERSION: "16.x" # set this to the node version to use
 
 permissions:
   contents: read
@@ -44,13 +44,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
 
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
@@ -59,10 +58,5 @@ jobs:
           server: www.rakki.fun
           port: 3722
           ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
-          local_path: './dist/*'
-          remote_path: '/home/nginx_user/nginx_root/libra'
-
-
-
-
-
+          local_path: "./dist/*"
+          remote_path: "/home/nginx_user/nginx_root/libra"
