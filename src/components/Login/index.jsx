@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import style from './index.module.css'
-import { Label, Input, Button } from '../../styledComponent/style'
+import {
+  Label, Input, Button, Div
+} from '../../styledComponent/style'
 
 export default function LoginPage() {
   let [user, setUser] = useState({ username: '', password: '' })
@@ -23,16 +24,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className={style.loginBox}>
-      <div className={style.inputBox}>
+    <Div id="loginBox">
+      <Div id="inputBox">
         <Label>username</Label>
         <Input onChange={(e) => setUser({ ...user, username: e.target.value })} />
-      </div>
-      <div className={style.inputBox}>
+      </Div>
+      <Div id="inputBox">
         <Label>password</Label>
         <Input type="password" onChange={(e) => setUser({ ...user, password: e.target.value })} />
-      </div>
+      </Div>
       <Button onClick={Login}>Login</Button>
-    </div>
+    </Div>
   )
 }

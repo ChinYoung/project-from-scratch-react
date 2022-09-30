@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
 import { Input, Button } from '../../styledComponent/style'
-import cssStyle from './Table/index.module.css'
 import { createTodoItem, updateTodoItem, getTodoList } from '../../api'
 
 export default function Dialog(props) {
   const { operateType, itemData, updateList } = props
   const title = operateType || 'Add'
-  const btnStyle = (title === 'Add' ? '' : cssStyle.btn)
+  const btnId = (title === 'Add' ? '' : 'delBtn')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [info, setInfo] = useState({ start_time: '', end_time: '', content: '' })
   let newList = []
@@ -59,7 +58,7 @@ export default function Dialog(props) {
 
   return (
     <>
-      <Button onClick={showModal} id={btnStyle}>
+      <Button id={btnId} onClick={showModal}>
         {title}
       </Button>
       <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

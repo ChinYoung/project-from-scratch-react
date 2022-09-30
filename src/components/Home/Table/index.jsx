@@ -2,10 +2,9 @@ import {
   Table, Column, HeaderCell, Cell
 } from 'rsuite-table'
 
-import React, { useState } from 'react'
+import React from 'react'
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { Button } from '../../../styledComponent/style'
-import cssStyle from './index.module.css'
 import { deleteTodoItem, getTodoList } from '../../../api'
 import Dialog from '../Dialog'
 
@@ -54,7 +53,7 @@ export default function TodoList(props) {
           {(rowData) => {
             return (
               <div>
-                <Button id={cssStyle.btn} onClick={() => { deleteRow(rowData) }}>Delete</Button>
+                <Button id="delBtn" onClick={() => { deleteRow(rowData) }}>Delete</Button>
                 <Dialog operateType="edit" itemData={rowData} updateList={updateList} />
               </div>
             )
