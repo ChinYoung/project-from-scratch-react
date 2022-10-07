@@ -30,7 +30,8 @@ export default function Home() {
     if (search.trim() === '') setTodoList(allItems)
     else {
       searchTodoItems(search).then((res) => {
-        setTodoList([res.data])
+        const targetItem = { ...res.data, todo_id: res.data.id, id: '0' }
+        setTodoList([targetItem])
       })
     }
   }
