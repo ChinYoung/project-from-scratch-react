@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
 import { Input, Button } from '../../styledComponent/style'
 import { createTodoItem, updateTodoItem, getTodoList } from '../../api'
+import ListContext from '../../context'
 
 export default function Dialog(props) {
-  const { operateType, itemData, updateList } = props
+  let ListContextValue = useContext(ListContext)
+  const { setTodoList } = ListContextValue
+  const { operateType, itemData } = props
   const title = operateType || 'Add'
   const btnId = (title === 'Add' ? '' : 'delBtn')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [info, setInfo] = useState({ start_time: '', end_time: '', content: '' })
-  let newList = []
   const clearFilm = () => {
     setInfo({ start_time: '', end_time: '', content: '' })
   }
@@ -21,8 +23,7 @@ export default function Dialog(props) {
     if (title === 'Add') {
       createTodoItem(info).then(() => {
         getTodoList().then((res) => {
-          newList = res.todoItems
-          updateList(newList)
+          setTodoList(res.todoItems)
         })
       })
       setIsModalOpen(false)
@@ -37,8 +38,7 @@ export default function Dialog(props) {
         const updateInfo = { ...info, todo_id }
         updateTodoItem(updateInfo).then(() => {
           getTodoList().then((res) => {
-            newList = res.todoItems
-            updateList(newList)
+            setTodoList(res.todoItems)
           })
         })
         setIsModalOpen(false)
