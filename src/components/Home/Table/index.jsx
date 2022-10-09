@@ -2,26 +2,26 @@ import {
   Table, Column, HeaderCell, Cell
 } from 'rsuite-table'
 
-import React from 'react'
+import React, { useContext } from 'react'
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { Button } from '../../../styledComponent/style'
 import { deleteTodoItem, getTodoList } from '../../../api'
 import Dialog from '../Dialog'
+import ListContext from '../../../context'
 
-export default function TodoList(props) {
-  const { dataList, updateList } = props
-  let newList = []
+export default function TodoList() {
+  let ListContextValue = useContext(ListContext)
+  const { todoList, setTodoList } = ListContextValue
   function deleteRow(rowData) {
     const { todo_id } = rowData
     deleteTodoItem(todo_id).then(() => {
       getTodoList().then((res) => {
-        newList = res.todoItems
-        updateList(newList)
+        setTodoList(res.todoItems)
       })
     })
   }
   return (
-    <Table data={dataList} height={300}>
+    <Table data={todoList} height={300}>
       <Column fixed flexGrow={0.5}>
         <HeaderCell>ID</HeaderCell>
         <Cell dataKey="id" />
@@ -54,7 +54,7 @@ export default function TodoList(props) {
             return (
               <div>
                 <Button id="delBtn" onClick={() => { deleteRow(rowData) }}>Delete</Button>
-                <Dialog operateType="edit" itemData={rowData} updateList={updateList} />
+                <Dialog operateType="edit" itemData={rowData} />
               </div>
             )
           }}
