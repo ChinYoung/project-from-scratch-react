@@ -2,21 +2,22 @@ import {
   Table, Column, HeaderCell, Cell
 } from 'rsuite-table'
 
-import React, { useContext } from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { Button } from '../../../styledComponent/style'
 import { deleteTodoItem, getTodoList } from '../../../api'
+import { selectTodoList, setTodoList } from '../../../features/todoList/listSlice'
 import Dialog from '../Dialog'
-import ListContext from '../../../context'
 
 export default function TodoList() {
-  let ListContextValue = useContext(ListContext)
-  const { todoList, setTodoList } = ListContextValue
+  const dispatch = useDispatch()
+  const todoList = useSelector(selectTodoList)
   function deleteRow(rowData) {
     const { todo_id } = rowData
     deleteTodoItem(todo_id).then(() => {
       getTodoList().then((res) => {
-        setTodoList(res.todoItems)
+        dispatch(setTodoList(res.todoItems))
       })
     })
   }

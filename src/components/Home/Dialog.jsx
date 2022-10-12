@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
 import { Input, Button } from '../../styledComponent/style'
 import { createTodoItem, updateTodoItem, getTodoList } from '../../api'
-import ListContext from '../../context'
+import { setTodoList } from '../../features/todoList/listSlice'
 
 export default function Dialog(props) {
-  let ListContextValue = useContext(ListContext)
-  const { setTodoList } = ListContextValue
+  const dispatch = useDispatch()
   const { operateType, itemData } = props
   const title = operateType || 'Add'
   const btnId = (title === 'Add' ? '' : 'delBtn')
@@ -23,7 +23,7 @@ export default function Dialog(props) {
     if (title === 'Add') {
       createTodoItem(info).then(() => {
         getTodoList().then((res) => {
-          setTodoList(res.todoItems)
+          dispatch(setTodoList(res.todoItems))
         })
       })
       setIsModalOpen(false)
@@ -38,7 +38,7 @@ export default function Dialog(props) {
         const updateInfo = { ...info, todo_id }
         updateTodoItem(updateInfo).then(() => {
           getTodoList().then((res) => {
-            setTodoList(res.todoItems)
+            dispatch(setTodoList(res.todoItems))
           })
         })
         setIsModalOpen(false)
