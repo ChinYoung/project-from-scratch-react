@@ -50,36 +50,6 @@ const Label = styled.label`
     height: 40px;
     line-height: 40px;
 `
-const Div = styled.div`
-    position: ${(props) => (props.id === 'loginBox' ? 'absolute' : '')};
-    width: ${(props) => (props.id === 'loginBox' ? '500px' : '100%')};
-    height: ${(props) => {
-    if (props.id === 'loginBox') return '260px'
-    if (props.id === 'ComContainer' || props.id === 'table') return '100%'
-    return '60px'
-  }};
-    padding: ${(props) => (props.id === 'loginBox' ? '20px' : '')};
-    display: ${(props) => (props.id === 'table' ? '' : 'flex')};
-    background-color: ${(props) => (
-    (props.id === 'box' || props.id === 'ComContainer' || props.id === 'table') ? '' : 'rgb(108, 153, 192)'
-  )};
-    margin: ${(props) => {
-    if (props.id === 'box') return 'auto auto 30px auto'
-    if (props.id === 'loginBox') return 'auto'
-    if (props.id === 'inputBox') return 'auto auto 25px auto'
-    return 'auto auto 20px auto'
-  }};
-    white-space: nowrap;
-    top: ${(props) => (props.id === 'loginBox' ? '0' : '')};
-    left: ${(props) => (props.id === 'loginBox' ? '0' : '')};
-    right: ${(props) => (props.id === 'loginBox' ? '0' : '')};
-    bottom: ${(props) => (props.id === 'loginBox' ? '0' : '')};
-    flex-direction: ${(props) => {
-    if (props.id === 'loginBox') return 'column'
-    if (props.id === 'inputBox') return 'row'
-    return ''
-  }};
-`
 export {
-  Button, Input, Label, Div
+  Button, Input, Label
 }

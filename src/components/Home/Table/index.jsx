@@ -5,7 +5,7 @@ import {
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import 'rsuite-table/dist/css/rsuite-table.css'
-import { Button } from '../../../styledComponent/style'
+import { Button } from '../../../style'
 import { deleteTodoItem, getTodoList } from '../../../api'
 import { selectTodoList, setTodoList } from '../../../features/todoList/listSlice'
 import Dialog from '../Dialog'
