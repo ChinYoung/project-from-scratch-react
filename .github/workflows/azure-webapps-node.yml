@@ -56,7 +56,7 @@ jobs:
         with:
           username: nginx_user
           server: www.rakki.fun
-          port: 3722
+          port: 5822
           ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
           local_path: "./dist/*"
           remote_path: "/home/nginx_user/nginx_root/libra"
