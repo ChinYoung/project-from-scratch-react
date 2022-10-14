@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { useDispatch } from 'react-redux'
-import { setTodoList } from '../../features/todoList/listSlice'
 import { Button, Input } from '../../style'
 import { Header, Box, Table } from './style'
 import { getTodoList, searchTodoItems } from '../../api'
 import TodoList from './Table'
-import Dialog from './Dialog'
+import Dialog from '../../containers/Home/Dialog'
 
-export default function Home() {
-  const dispatch = useDispatch()
+export default function Home(props) {
+  const { todoList, setTodoList } = props
   const navigate = useNavigate()
-  const [allItems, setAllItems] = useState([])
   let [search, setSearch] = useState('')
+  let [allItems, setAllItems] = useState([])
   function getList() {
     getTodoList().then((res) => {
       if (res?.todoItems) {
-        dispatch((setTodoList(res.todoItems)))
+        setTodoList(res.todoItems)
         setAllItems(res.todoItems)
       }
     })
@@ -26,11 +24,12 @@ export default function Home() {
   }, [])
 
   function searchItems() {
-    if (search.trim() === '') dispatch((setTodoList(allItems)))
-    else {
+    if (search.trim() === '') {
+      setTodoList(allItems)
+    } else {
       searchTodoItems(search).then((res) => {
         const targetItem = { ...res.data, todo_id: res.data.id, id: '0' }
-        dispatch((setTodoList([targetItem])))
+        setTodoList([targetItem])
       })
     }
   }
@@ -52,7 +51,7 @@ export default function Home() {
         <Button id="searchBtn" onClick={searchItems}>Search</Button>
         <Dialog />
       </Box>
-      <TodoList />
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
     </Table>
   )
 }

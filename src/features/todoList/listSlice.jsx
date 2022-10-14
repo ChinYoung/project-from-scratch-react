@@ -16,6 +16,4 @@ export const {
   setTodoList
 } = todoListSlice.actions
 
-export const selectTodoList = (state) => state.todoList.value
-
 export default todoListSlice.reducer

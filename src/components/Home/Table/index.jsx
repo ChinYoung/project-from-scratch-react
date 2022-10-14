@@ -1,23 +1,19 @@
 import {
   Table, Column, HeaderCell, Cell
 } from 'rsuite-table'
-
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { Button } from '../../../style'
 import { deleteTodoItem, getTodoList } from '../../../api'
-import { selectTodoList, setTodoList } from '../../../features/todoList/listSlice'
-import Dialog from '../Dialog'
+import Dialog from '../../../containers/Home/Dialog'
 
-export default function TodoList() {
-  const dispatch = useDispatch()
-  const todoList = useSelector(selectTodoList)
+export default function TodoList(props) {
+  const { todoList, setTodoList } = props
   function deleteRow(rowData) {
     const { todo_id } = rowData
     deleteTodoItem(todo_id).then(() => {
       getTodoList().then((res) => {
-        dispatch(setTodoList(res.todoItems))
+        setTodoList(res.todoItems)
       })
     })
   }

@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import 'antd/dist/antd.css'
 import { Modal, message } from 'antd'
 import { Input, Button } from '../../style'
 import { createTodoItem, updateTodoItem, getTodoList } from '../../api'
-import { setTodoList } from '../../features/todoList/listSlice'
 
 export default function Dialog(props) {
-  const dispatch = useDispatch()
-  const { operateType, itemData } = props
+  const { setTodoList, operateType, itemData } = props
   const title = operateType || 'Add'
   const btnId = (title === 'Add' ? '' : 'delBtn')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -23,7 +20,7 @@ export default function Dialog(props) {
     if (title === 'Add') {
       createTodoItem(info).then(() => {
         getTodoList().then((res) => {
-          dispatch(setTodoList(res.todoItems))
+          setTodoList(res.todoItems)
         })
       })
       setIsModalOpen(false)
@@ -38,7 +35,7 @@ export default function Dialog(props) {
         const updateInfo = { ...info, todo_id }
         updateTodoItem(updateInfo).then(() => {
           getTodoList().then((res) => {
-            dispatch(setTodoList(res.todoItems))
+            setTodoList(res.todoItems)
           })
         })
         setIsModalOpen(false)
