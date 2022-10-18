@@ -53,6 +53,7 @@ module.exports = {
     'react/no-unstable-nested-components': 'off',
     'no-constant-condition': 'off',
     'no-param-reassign': 'off',
+    'react/jsx-no-useless-fragment': 'off',
     camelcase: 'off'
   },
 }
